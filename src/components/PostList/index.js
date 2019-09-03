@@ -57,7 +57,7 @@ export default class PostList extends Component {
           }
         ]
       }
-    ].sort((a, b) => b.id - a.id)
+    ]
   };
 
   CreatePost = data => {
@@ -133,9 +133,15 @@ export default class PostList extends Component {
     return (
       <ul className="postlist">
         <NewPost onCreate={this.CreatePost}></NewPost>
-        {this.state.posts.map(post => (
-          <Post onComment={this.CreateComment} key={post.id} data={post}></Post>
-        ))}
+        {this.state.posts
+          .sort((a, b) => b.id - a.id)
+          .map(post => (
+            <Post
+              onComment={this.CreateComment}
+              key={post.id}
+              data={post}
+            ></Post>
+          ))}
       </ul>
     );
   }

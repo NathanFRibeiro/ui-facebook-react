@@ -11,17 +11,17 @@ export default class NewComment extends Component {
   };
 
   handleKeyDown = e => {
+    e.persist();
     this.setState({ value: e.target.value }, () => {
-      console.log("TESTE: " + e.target.value);
+      if (e.key === "Enter") {
+        this.handleSubmit();
+      }
     });
-
-    if (e.key === "Enter") {
-      this.handleSubmit();
-    }
   };
 
   handleSubmit = () => {
-    this.props.onComment(this.props.idPost, this.state.value);
+    const newComment = this.state.value;
+    this.props.onComment(this.props.idPost, newComment);
 
     this.refs.newcomment.value = "";
   };
